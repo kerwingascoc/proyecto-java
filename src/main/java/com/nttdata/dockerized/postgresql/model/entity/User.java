@@ -1,4 +1,4 @@
-package com.nttdata.dockerized.postgresql.user;
+package com.nttdata.dockerized.postgresql.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,6 +14,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
+
+    @Column
+    private String email;
+
+    @Column
+    private Boolean active;
 }
