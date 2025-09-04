@@ -28,4 +28,9 @@ public class UserServiceImpl implements UserService {
         user.setActive(Boolean.TRUE);
         return userRepository.save(user);
     }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
 }
