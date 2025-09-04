@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+    public UserDto updateUser(@PathVariable Long id, @RequestBody UserSaveRequestDto userDto) {
         return INSTANCE.map(userService.update(id, INSTANCE.toEntity(userDto)));
     }
 }
