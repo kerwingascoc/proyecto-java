@@ -1,25 +1,19 @@
 package com.nttdata.dockerized.postgresql.model.entity;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-@Entity
-@Table(name = "users")
+@Document(collection = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id; // MongoDB usa String para _id
 
-    @Column
     private String name;
-
-    @Column
     private String email;
-
-    @Column
     private Boolean active;
 }

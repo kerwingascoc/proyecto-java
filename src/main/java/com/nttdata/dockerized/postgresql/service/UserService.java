@@ -8,7 +8,13 @@ public interface UserService {
 
     public List<User> listAll();
 
-    public User findById(Long id);
+    public User findById(String id);
 
     public User save(User user);
+
+    public User update(String id, User user);
+
+    public boolean deleteById(String id);
+
+    public boolean existsById(String id);
 }

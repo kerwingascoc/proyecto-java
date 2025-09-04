@@ -5,24 +5,35 @@ services:
     image: nttdata-java-app:1.0.0
     build: .
     ports:
-      - 8081:8080
+      - "8081:8080"
     environment:
-      - DATABASE_URL=jdbc:postgresql://java_db:5432/postgres
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=postgres
+      - SERVER_PORT=8080
+      - SPRING_DATA_MONGODB_URI=mongodb://admin:admin@mongo_db:27017/userdb?authSource=admin
     depends_on:
-      - java_db
-  java_db:
-    container_name: java_db
-    image: postgres:15
+      - mongo_db
+  mongo_db:
+    container_name: mongo_db
+    image: mongo:7
     ports:
-      - 5432:5432
+      - "27017:27017"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: userdb
     volumes:
-      - database:/var/lib/postgresql/data
+      - database:/data/db
+  
+  mongo-express:
+    container_name: mongo_express
+    image: mongo-express:latest
+    ports:
+      - "8082:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin@mongo_db:27017/
+      ME_CONFIG_BASICAUTH: false
+    depends_on:
+      - mongo_db
 volumes:
   database:
-    external: true
