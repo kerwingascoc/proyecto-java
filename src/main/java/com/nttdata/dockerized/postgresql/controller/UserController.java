@@ -3,6 +3,7 @@ package com.nttdata.dockerized.postgresql.controller;
 import com.nttdata.dockerized.postgresql.model.dto.UserDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveRequestDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveResponseDto;
+import com.nttdata.dockerized.postgresql.model.entity.User;
 import com.nttdata.dockerized.postgresql.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,4 +33,19 @@ public class UserController {
     public UserSaveResponseDto save(@RequestBody UserSaveRequestDto userSaveRequestDto) {
         return INSTANCE.toUserSaveResponseDto(userService.save(INSTANCE.toEntity(userSaveRequestDto)));
     }
+
+    @DeleteMapping("/{id}")
+    public UserDto deleteUserById(@PathVariable Long id) {
+        return INSTANCE.map(userService.deleteById(id));
+    }
+
+    @PutMapping("/{id}")
+    public UserDto updateUser(@PathVariable Long id, @RequestBody UserSaveRequestDto userSaveRequestDto) {
+        User user = INSTANCE.toEntity(userSaveRequestDto);
+        User usuarioActualizado = userService.updateById(id, user);
+        return INSTANCE.map(usuarioActualizado);
+    }
+
+
+
 }

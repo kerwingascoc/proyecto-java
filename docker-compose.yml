@@ -1,4 +1,4 @@
-version: "3.9"
+
 services:
   java_app:
     container_name: java_app
@@ -16,13 +16,13 @@ services:
     container_name: java_db
     image: postgres:15
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     volumes:
       - database:/var/lib/postgresql/data
+
 volumes:
   database:
-    external: true
