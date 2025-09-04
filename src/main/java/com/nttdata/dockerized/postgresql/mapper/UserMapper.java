@@ -3,6 +3,7 @@ package com.nttdata.dockerized.postgresql.mapper;
 import com.nttdata.dockerized.postgresql.model.dto.UserDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveRequestDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveResponseDto;
+import com.nttdata.dockerized.postgresql.model.dto.UserUpdateRequestDto;
 import com.nttdata.dockerized.postgresql.model.entity.User;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -23,6 +24,8 @@ public interface UserMapper {
     public User toEntity(UserSaveRequestDto userSaveRequestDto);
 
     public UserSaveResponseDto toUserSaveResponseDto(User user);
+
+    void updateEntityFromDto(UserUpdateRequestDto dto, @MappingTarget User user);
 
     @AfterMapping
     default void setRemainingValues(User user, @MappingTarget UserDto userDto) {
