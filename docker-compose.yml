@@ -1,28 +1,39 @@
+version: "3.9"
 
 services:
   java_app:
     container_name: java_app
-    image: nttdata-java-app:1.0.0
     build: .
+    image: nttdata-java-app:1.0.0
     ports:
-      - 8081:8080
+      - "8080:8080"
     environment:
-      - DATABASE_URL=jdbc:postgresql://java_db:5432/postgres
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=postgres
+      - DATABASE_URL=mongodb://mongo:27017/nttdata_db
     depends_on:
-      - java_db
-  java_db:
-    container_name: java_db
-    image: postgres:15
+      - mongo
+
+  mongo:
+    container_name: mongo_db
+    image: mongo:6.0
+    restart: always
     ports:
-      - "5432:5432"
+      - "27017:27017"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      MONGO_INITDB_DATABASE: nttdata_db
     volumes:
-      - database:/var/lib/postgresql/data
+      - mongo_data:/data/db
+
+  mongo_express:
+    container_name: mongo_express
+    image: mongo-express:1.0.0-alpha.4
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+    depends_on:
+      - mongo
 
 volumes:
-  database:
+  mongo_data:

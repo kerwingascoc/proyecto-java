@@ -1,13 +1,13 @@
 package com.nttdata.dockerized.postgresql.model.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class UserSaveResponseDto {
 
-    private Long id;
+    private String id;
 
     private String name;
 

@@ -5,6 +5,7 @@ import com.nttdata.dockerized.postgresql.model.dto.UserSaveRequestDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveResponseDto;
 import com.nttdata.dockerized.postgresql.model.entity.User;
 import com.nttdata.dockerized.postgresql.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import static com.nttdata.dockerized.postgresql.mapper.UserMapper.INSTANCE;
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
 
     @Autowired
@@ -25,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable Long id) {
+    public UserDto getUserById(@PathVariable String id) {
         return INSTANCE.map(userService.findById(id));
     }
 
@@ -35,12 +37,12 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public UserDto deleteUserById(@PathVariable Long id) {
+    public UserDto deleteUserById(@PathVariable String id) {
         return INSTANCE.map(userService.deleteById(id));
     }
 
     @PutMapping("/{id}")
-    public UserDto updateUser(@PathVariable Long id, @RequestBody UserSaveRequestDto userSaveRequestDto) {
+    public UserDto updateUser(@PathVariable String id, @RequestBody UserSaveRequestDto userSaveRequestDto) {
         User user = INSTANCE.toEntity(userSaveRequestDto);
         User usuarioActualizado = userService.updateById(id, user);
         return INSTANCE.map(usuarioActualizado);

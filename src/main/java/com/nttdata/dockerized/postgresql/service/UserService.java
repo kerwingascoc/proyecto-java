@@ -4,15 +4,16 @@ import com.nttdata.dockerized.postgresql.model.entity.User;
 
 import java.util.List;
 
+
 public interface UserService {
 
     public List<User> listAll();
 
-    public User findById(Long id);
+    public User findById(String id);
 
     public User save(User user);
 
-    public User deleteById(Long id);
+    public User deleteById(String id);
 
-    public User updateById(Long id, User user);
+    public User updateById(String id, User user);
 }
