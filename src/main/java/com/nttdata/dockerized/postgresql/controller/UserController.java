@@ -24,12 +24,22 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable Long id) {
+    public UserDto getUserById(@PathVariable String id) {
         return INSTANCE.map(userService.findById(id));
     }
 
     @PostMapping
     public UserSaveResponseDto save(@RequestBody UserSaveRequestDto userSaveRequestDto) {
         return INSTANCE.toUserSaveResponseDto(userService.save(INSTANCE.toEntity(userSaveRequestDto)));
+    }
+
+    @PutMapping("/{id}")
+    public UserDto update(@PathVariable String id, @RequestBody UserSaveRequestDto userSaveRequestDto){
+        return INSTANCE.map(userService.update(id, INSTANCE.toEntity(userSaveRequestDto)));
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id){
+        userService.delete(id);
     }
 }

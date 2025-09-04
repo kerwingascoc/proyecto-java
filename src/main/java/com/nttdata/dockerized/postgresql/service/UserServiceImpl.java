@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(String id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -28,4 +28,21 @@ public class UserServiceImpl implements UserService {
         user.setActive(Boolean.TRUE);
         return userRepository.save(user);
     }
+
+     @Override
+    public User update(String id, User user){
+        return userRepository.findById(id)
+                .map(existingUser -> {
+                    existingUser.setName(user.getName());
+                    existingUser.setEmail(user.getEmail());
+                    existingUser.setActive(user.getActive());
+                    return userRepository.save(existingUser);
+                }).orElse(null);
+     }
+
+     @Override
+    public void delete(String id){
+        userRepository.deleteById(id);
+     }
+
 }
