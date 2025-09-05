@@ -32,4 +32,20 @@ public class UserController {
     public UserSaveResponseDto save(@RequestBody UserSaveRequestDto userSaveRequestDto) {
         return INSTANCE.toUserSaveResponseDto(userService.save(INSTANCE.toEntity(userSaveRequestDto)));
     }
+
+    @PutMapping("/{id}")
+    public UserDto update(@PathVariable Long id, @RequestBody UserSaveRequestDto userSaveRequestDto) {
+        var user = userService.findById(id);
+        if (user != null) {
+            user.setName(userSaveRequestDto.getName());
+            user.setEmail(userSaveRequestDto.getEmail());
+            return INSTANCE.map(userService.update(user));
+        }
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+    }
 }

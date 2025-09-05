@@ -28,4 +28,19 @@ public class UserServiceImpl implements UserService {
         user.setActive(Boolean.TRUE);
         return userRepository.save(user);
     }
+
+    @Override
+    public User update(User user) {
+        return userRepository.save(user);
+    }
+    @Override
+    public void delete(Long id) {
+        User user = findById(id);
+        if (user != null) {
+            user.setActive(Boolean.FALSE);
+            userRepository.save(user);
+        }else {
+            throw new RuntimeException("usuario no encontrado: "+id);
+        }
+    }
 }
