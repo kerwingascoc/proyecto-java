@@ -14,7 +14,7 @@ import java.util.List;
 import static com.nttdata.dockerized.postgresql.mapper.UserMapper.INSTANCE;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
