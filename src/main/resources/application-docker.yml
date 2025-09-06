@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: dockerized.postgresql
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+server:
+  port: 8080

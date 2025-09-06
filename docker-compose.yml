@@ -25,4 +25,5 @@ services:
       - database:/var/lib/postgresql/data
 volumes:
   database:
-    external: true
+
+
