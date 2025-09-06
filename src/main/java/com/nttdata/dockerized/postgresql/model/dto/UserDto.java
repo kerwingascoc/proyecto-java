@@ -14,4 +14,6 @@ public class UserDto {
     private String email;
 
     private String status;
+
+    private String fechaRegistro;
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,28 +23,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente no encontrado"));
     }
 
     @Override
     public User save(User user) {
         user.setActive(Boolean.TRUE);
+        user.setFechaRegistro(LocalDateTime.now());
         return userRepository.save(user);
     }
     @Override
-    public User update(Long id, User entrante) {
-        User db = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        if (entrante.getName() != null)  db.setName(entrante.getName());
-        if (entrante.getEmail() != null) db.setEmail(entrante.getEmail());
-        if (entrante.getActive() != null) db.setActive(entrante.getActive());
+    public User update(Long id, User user) {
+        User db = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CLiente no encontrado para actualizar datos!"));
+        if (user.getName() != null)  db.setName(user.getName());
+        if (user.getEmail() != null) db.setEmail(user.getEmail());
+        if (user.getActive() != null) db.setActive(user.getActive());
         return userRepository.save(db);
     }
 
     @Override
     public void deleteById(Long id) {
         if (!userRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado para eliminar!");
         }
         userRepository.deleteById(id);
     }
