@@ -1,21 +1,16 @@
 package com.nttdata.dockerized.postgresql.model.dto;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
-@Setter
 @Getter
-public class UserDto {
-
-    private Long id;
+@Setter
+public class UserUpdateRequestDto {
 
     private String name;
 
     private String email;
 
-    private LocalDateTime fechaRegistro;
-
-    private String status;
+    private Boolean active;
 }
