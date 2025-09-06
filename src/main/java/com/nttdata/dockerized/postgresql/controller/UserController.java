@@ -33,13 +33,27 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserSaveResponseDto update(@RequestBody UserSaveRequestDto userUpdateRequestDto, @PathVariable Long id){
-        return INSTANCE.toUserSaveResponseDto(userService.update(INSTANCE.toEntity(userUpdateRequestDto), id));
+    public ResponseEntity<UserSaveResponseDto> update(@RequestBody UserUpdateRequestDto userUpdateRequestDto, @PathVariable Long id){
+
+        return ResponseEntity
+                .ok(INSTANCE
+                        .toUserSaveResponseDto(userService
+                                .update(userUpdateRequestDto, id)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/find-by-active")
+    public ResponseEntity<List<UserDto>> getUsersActive() {
+        return ResponseEntity.ok(INSTANCE.map(userService.findByActive()));
+    }
+
+    @GetMapping("/find-by-email")
+    public ResponseEntity<UserDto> getUserByEmail(@RequestParam String email) {
+        return ResponseEntity.ok(INSTANCE.map(userService.findByEmail(email)));
     }
 }
