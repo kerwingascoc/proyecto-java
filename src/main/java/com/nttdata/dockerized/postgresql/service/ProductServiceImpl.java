@@ -3,9 +3,10 @@ package com.nttdata.dockerized.postgresql.service;
 import com.nttdata.dockerized.postgresql.model.entity.Product;
 import com.nttdata.dockerized.postgresql.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ProductServiceImpl implements ProductService {
 
     @Autowired

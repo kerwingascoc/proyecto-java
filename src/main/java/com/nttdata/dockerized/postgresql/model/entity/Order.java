@@ -31,6 +31,6 @@ public class Order {
     private User client;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> details;
+    private List<OrderDetail> details;
 
 }
