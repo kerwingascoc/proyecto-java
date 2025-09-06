@@ -28,4 +28,28 @@ public class UserServiceImpl implements UserService {
         user.setActive(Boolean.TRUE);
         return userRepository.save(user);
     }
+
+    @Override
+    public User update(Long id, User user) {
+
+        User userSaved = userRepository.findById(id).orElse(null);
+
+        if(userSaved == null){
+            return null;
+        }
+
+        userSaved.setName(user.getName());
+        userSaved.setEmail(user.getEmail());
+
+        return userRepository.save(userSaved);
+    }
+
+    @Override
+    public void delete(Long id) {
+
+        userRepository.deleteById(id);
+
+    }
+
+
 }
