@@ -3,13 +3,15 @@ package com.nttdata.dockerized.postgresql.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+import java.time.LocalDateTime;
+
 @Setter
-public class UserSaveResponseDto {
+@Getter
+public class ClientDto {
 
     private Long id;
-
     private String name;
-
     private String email;
+    private String status;
+    private LocalDateTime registrationDate;
 }
