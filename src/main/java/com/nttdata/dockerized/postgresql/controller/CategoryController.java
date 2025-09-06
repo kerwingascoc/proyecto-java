@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.nttdata.dockerized.postgresql.mapper.CategoryMapper.INSTANCE;
 
+
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
