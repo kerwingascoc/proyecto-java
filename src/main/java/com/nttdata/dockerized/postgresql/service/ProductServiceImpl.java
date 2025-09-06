@@ -39,6 +39,7 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.findById(id).map(
                 p ->{
                     p.setName(user.getName());
+                    p.setPrice(user.getPrice());
                     return productRepository.save(p);
                 }).orElseThrow();
     }
