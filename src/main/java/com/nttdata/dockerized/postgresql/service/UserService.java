@@ -15,4 +15,8 @@ public interface UserService {
     User update(User user);
 
     void delete(Long id);
+
+    User findByEmail(String email);
+
+    List<User> findByActive(Boolean active);
 }

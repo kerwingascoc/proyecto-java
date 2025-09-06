@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.nttdata.dockerized.postgresql.mapper.UserMapper.INSTANCE;
@@ -35,10 +36,27 @@ public class UserController {
         return ResponseEntity.ok( INSTANCE.map(userService.findById(id)) );
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserDto> getUserByEmail(
+            @PathVariable String email
+    ) {
+        if (userService.findByEmail(email) == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok( INSTANCE.map( userService.findByEmail(email)) );
+    }
+
+    @GetMapping("/useractivos")
+    public ResponseEntity<List<UserDto>> getUserByEmail() {
+        return ResponseEntity.ok( INSTANCE.map(userService.findByActive(true)) );
+    }
+
     @PostMapping
     public ResponseEntity<UserSaveResponseDto> save(@RequestBody UserSaveRequestDto userSaveRequestDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(
+        /*return ResponseEntity.status(HttpStatus.CREATED).body(
                 INSTANCE.toUserSaveResponseDto(userService.save(INSTANCE.toEntity(userSaveRequestDto)))
+        );*/
+        return new ResponseEntity<>(
+                INSTANCE.toUserSaveResponseDto(userService.save(INSTANCE.toEntity(userSaveRequestDto))),
+                HttpStatus.CREATED
         );
     }
 
