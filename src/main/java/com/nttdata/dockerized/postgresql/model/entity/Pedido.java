@@ -21,7 +21,7 @@ public class Pedido {
     private LocalDateTime fechaPedido;
 
     @Column
-    private Boolean estado;
+    private Boolean active;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

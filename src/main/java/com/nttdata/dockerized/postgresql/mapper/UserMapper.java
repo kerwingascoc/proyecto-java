@@ -3,7 +3,6 @@ package com.nttdata.dockerized.postgresql.mapper;
 import com.nttdata.dockerized.postgresql.model.dto.UserDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveRequestDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveResponseDto;
-import com.nttdata.dockerized.postgresql.model.dto.UserUpdateRequestDto;
 import com.nttdata.dockerized.postgresql.model.entity.User;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -17,16 +16,22 @@ import java.util.List;
 public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+
     public UserDto map(User user);
     public List<UserDto> map(List<User> users);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "fechaRegistro", ignore = true)
+    @Mapping(target = "pedidos", ignore = true)
     public User toEntity(UserSaveRequestDto userSaveRequestDto);
 
     public UserSaveResponseDto toUserSaveResponseDto(User user);
 
-    default User toEntityForUpdate(Long id, UserUpdateRequestDto dto, User existingUser) {
+    default Boolean mapActiveStringToBoolean(String active) {
+        return "Active".equalsIgnoreCase(active);
+    }
+
+    default User toEntityForUpdate(Long id, UserSaveRequestDto dto, User existingUser) {
         if (dto == null) {
             throw new IllegalArgumentException("El DTO de actualización no puede ser null");
         }
@@ -36,22 +41,39 @@ public interface UserMapper {
 
         User user = new User();
         user.setId(id);
-        if (dto.getEmail() != null && !dto.getEmail().isEmpty()) {
+        user.setFechaRegistro(existingUser.getFechaRegistro());
+        user.setPedidos(existingUser.getPedidos());
+
+        if (dto.getEmail() != null && !dto.getEmail().trim().isEmpty()) {
             user.setEmail(dto.getEmail());
         } else {
             user.setEmail(existingUser.getEmail());
         }
-        if (dto.getName() != null && !dto.getName().isEmpty()) {
+
+        if (dto.getName() != null && !dto.getName().trim().isEmpty()) {
             user.setName(dto.getName());
         } else {
             user.setName(existingUser.getName());
         }
+
+        if (dto.getActive() != null) {
+            user.setActive(mapActiveStringToBoolean(dto.getActive()));
+        } else {
+            user.setActive(existingUser.getActive());
+        }
+
         return user;
     }
 
 
+
     @AfterMapping
     default void setRemainingValues(User user, @MappingTarget UserDto userDto) {
-        userDto.setStatus(Boolean.TRUE.equals(user.getActive()) ? "Active" : "Inactive");
+        userDto.setActive(Boolean.TRUE.equals(user.getActive()) ? "Active" : "Inactive");
+    }
+
+    @AfterMapping
+    default void setRemainingValuesResponse(User user, @MappingTarget UserSaveResponseDto responseDto) {
+        responseDto.setActive(Boolean.TRUE.equals(user.getActive()) ? "Active" : "Inactive");
     }
 }
