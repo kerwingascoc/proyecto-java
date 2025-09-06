@@ -5,11 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserSaveResponseDto {
+public class CategoriaUpdateRequestDto {
 
-    private String id;
-
-    private String name;
-
-    private String email;
+    private String nombre;
 }
