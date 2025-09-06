@@ -4,14 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Setter
 @Getter
-public class UserDto {
-
+@Setter
+public class PedidoDto {
     private Long id;
-    private String name;
-    private String email;
-    private LocalDateTime fechaRegistro;
+    private LocalDateTime fechaPedido;
     private String active;
+    private UserDto user;
+    private List<DetallePedidoDto> detallesPedido;
 }
