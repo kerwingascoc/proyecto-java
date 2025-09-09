@@ -20,7 +20,7 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-    @Operation(description = "Para crear un producto")
+    //@Operation(description = "Para crear un producto")
     @PostMapping("/categoria/{idCategoria}")
     public ResponseEntity<Producto> crearProducto(@PathVariable(value = "idCategoria") Long idCategoria, @RequestBody ProductoDTO productoDTO){
 

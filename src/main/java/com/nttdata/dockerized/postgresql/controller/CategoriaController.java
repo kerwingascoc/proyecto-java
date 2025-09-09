@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,9 +23,9 @@ public class CategoriaController {
         this.categoriaService = categoriaService;
     }
 
-    @Operation(description = "Para crear una categoria")
+    //@Operation(description = "Para crear una categoria")
     @PostMapping
-    public ResponseEntity<Categoria> crearCategoria(CategoriaDTO categoriaDTO){
+    public ResponseEntity<Categoria> crearCategoria(@RequestBody CategoriaDTO categoriaDTO){
         Categoria categoriaGuardada = categoriaService.crearCategoria(INSTANCE.toCategoria(categoriaDTO));
         return new ResponseEntity<>(categoriaGuardada, HttpStatus.CREATED);
     }
