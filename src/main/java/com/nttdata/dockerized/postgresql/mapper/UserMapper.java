@@ -3,29 +3,38 @@ package com.nttdata.dockerized.postgresql.mapper;
 import com.nttdata.dockerized.postgresql.model.dto.UserDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveRequestDto;
 import com.nttdata.dockerized.postgresql.model.dto.UserSaveResponseDto;
+import com.nttdata.dockerized.postgresql.model.dto.UserUpdateDto;
 import com.nttdata.dockerized.postgresql.model.entity.User;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(uses = StatusMapper.class)
 public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    public UserDto map(User user);
+    @Mapping(target = "status", source = "active", qualifiedByName = "booleanToString")
+    UserDto map(User user);
+    List<UserDto> map(List<User> users);
 
-    public List<UserDto> map(List<User> users);
 
-    public User toEntity(UserSaveRequestDto userSaveRequestDto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    User toEntity(UserSaveRequestDto userSaveRequestDto);
 
-    public UserSaveResponseDto toUserSaveResponseDto(User user);
+    UserSaveResponseDto toUserSaveResponseDto(User user);
 
-    @AfterMapping
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", source = "status", qualifiedByName = "stringToBoolean")
+    void updateEntityFromDto(UserUpdateDto userUpdateDto, @MappingTarget User user);
+
+    /*@AfterMapping
     default void setRemainingValues(User user, @MappingTarget UserDto userDto) {
         userDto.setStatus(Boolean.TRUE.equals(user.getActive()) ? "Active" : "Inactive");
-    }
+    }*/
 }
