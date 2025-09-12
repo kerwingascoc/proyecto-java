@@ -1,0 +1,123 @@
+swagger: "2.0"
+info:
+  description: "Stock API description."
+  version: "1.0.0"
+  title: "Swagger Stock"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v2"
+tags:
+- name: "stock"
+  description: "Stock"
+  externalDocs:
+    description: "Find out more"
+    url: "http://localhost:8095"
+schemes:
+- "http"
+paths:
+  /stock/{productId}:
+    get:
+      tags:
+      - "stock"
+      summary: "Cantidad de unidades en stock"
+      description: "Devuelve el número de la cantidad total de unidades que existen para el producto con el id especificado"
+      operationId: "stockByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "El id del producto"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Operación exitosa"
+          schema:
+            $ref: "#/definitions/FindByProductIdDto"
+        "204":
+          description: "NO CONTENT"
+  /stock:
+    post:
+      tags:
+      - "stock"
+      summary: "Inserta uno o mas stocks"
+      description: "Insertar una colección de stocks"
+      operationId: "saveStock"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Lista de stocks"
+        required: true
+        schema:
+          $ref: "#/definitions/SaveStockRequestDto"
+      produces:
+      - "application/json"
+      responses:
+        "201":
+          description: "Operación exitosa"
+          schema:
+            $ref: "#/definitions/SaveStockResponseDto"
+        "200":
+          description: "Error al momento de guardar"
+          schema:
+            $ref: "#/definitions/ErrorDetailDto"
+definitions:
+  SaveStockRequestDto:
+    example: [
+      {
+        "productId": 1,
+        "wareHouseId": 1,
+        "quantity": 8
+      },
+      {
+        "productId": 2,
+        "wareHouseId": 1,
+        "quantity": 10
+      },
+      {
+        "productId": 2,
+        "wareHouseId": 1,
+        "quantity": 2
+      }
+    ]
+  SaveStockResponseDto:
+    example: [
+      {
+        "id": 1,
+        "productId": 1,
+        "wareHouseId": 1,
+        "quantity": 8
+      },
+      {
+        "id": 2,
+        "productId": 2,
+        "wareHouseId": 1,
+        "quantity": 10
+      },
+      {
+        "id": 3,
+        "productId": 2,
+        "wareHouseId": 1,
+        "quantity": 2
+      }
+    ]
+  FindByProductIdDto:
+    example: {
+      "productId" : 2,
+      "total": 12
+    }
+  ErrorDetailDto:
+    example: {
+      "message": "Quantity of product cannot be 0",
+      "dateTime": "2020-09-18 14:05:23"
+    }
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

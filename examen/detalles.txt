@@ -1,0 +1,37 @@
+API: stock-ms
+Port: 8095
+Paths: definidas en el swagger
+Database: stock-db
+Entity:
+	Stock:
+		id - Integer, autogenerado, PK
+		productId - Integer
+		wareHouseId - Integer
+		quantity - Integer
+		
+		Ejemplo - DB:
+			ID | PRODUCTID | WAREHOUSEID | QUANTITY
+			1   	1			1			8
+			2   	1			3			2
+			3   	1			1			2
+			4   	3			1			20
+Puntos de Evaluacion:
+	- Paquetes definidos correctamente, con la estructura de nombres de clase adecuada
+		controller
+		service
+		repository
+		dto
+		controller.advice
+		exception
+		utils
+	- Cobertura de pruebas unitarias mayor o igual al 85%
+	- Estructura de los dto para request y response tal como estan especificadas en el swagger
+	- Uso adecuado de map struct
+	- Archivo de configuración .properties con lo establecido
+	
+Formas para envio del proyecto:
+
+	1. Creandose un repositorio en gitLab y suben su codigo alli
+	2. Creandose un repositorio en gitHub y suben su codigo alli
+	3. Envio de link compartido con el archivo .7z,.zip (EXCEPCIONAL)
+		
