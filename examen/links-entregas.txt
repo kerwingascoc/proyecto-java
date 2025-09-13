@@ -10,3 +10,4 @@ Favio Angulo | https://github.com/Facundoo15/escuela-java-angulo-test/tree/stock
 Carlos Quezada | https://github.com/carlosQ2031/Escuela-Java/tree/develop/stock-ms
 José Bobadilla | https://github.com/joalf1994/control-exception/tree/feature/openfeign/stock-ms
 Sandro Castro | https://github.com/gopherss/examen-app-productos/tree/develop/code/stock-ms
+Yoexer Moran | https://github.com/eliasmoranurcia10/stock-ms.git
