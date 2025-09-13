@@ -12,3 +12,4 @@ José Bobadilla | https://github.com/joalf1994/control-exception/tree/feature/op
 Sandro Castro| https://github.com/gopherss/examen-app-productos/tree/develop/code/stock-ms
 Yoexer Moran | https://github.com/eliasmoranurcia10/stock-ms.git
 Jose Iriarte | https://github.com/Plancott/Examen.git
+Carlos David Adrianzen | https://github.com/cd28dev/reto-escuela-java/tree/develop/stock-ms
