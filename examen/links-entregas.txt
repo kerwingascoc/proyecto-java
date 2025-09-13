@@ -1,3 +1,4 @@
 Nombre y Apellidos | Link
 --------------------------------------------------
 Kerwin Gasco | www.github.com/{userGit}/stock-ms
+Jack Vega | https://github.com/JackVegaBallardo/TestYExcepcionesTarea/tree/stock-ms/stock-ms 
