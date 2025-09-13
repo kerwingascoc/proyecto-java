@@ -8,3 +8,4 @@ Raul Llanos | https://github.com/RaulTakeshiLlanosRodriguez/stock-ms
 Alexander Chang | https://github.com/miguelotech/stock-ms
 Favio Angulo | https://github.com/Facundoo15/escuela-java-angulo-test/tree/stock-ms
 Carlos Quezada | https://github.com/carlosQ2031/Escuela-Java/tree/develop/stock-ms
+José Bobadilla | https://github.com/joalf1994/control-exception/tree/feature/openfeign/stock-ms
