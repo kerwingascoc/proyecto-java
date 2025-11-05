@@ -5,9 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserSaveRequestDto {
+public class ClientSaveRequestDto {
 
     private String name;
-
     private String email;
 }

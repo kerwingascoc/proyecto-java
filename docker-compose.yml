@@ -5,24 +5,49 @@ services:
     image: nttdata-java-app:1.0.0
     build: .
     ports:
-      - 8081:8080
+      - "8081:8080"
     environment:
-      - DATABASE_URL=jdbc:postgresql://java_db:5432/postgres
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=postgres
+      - SERVER_PORT=8080
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5432/userdb
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin123
     depends_on:
-      - java_db
-  java_db:
-    container_name: java_db
-    image: postgres:15
+      postgres_db:
+        condition: service_healthy
+
+  postgres_db:
+    container_name: postgres_db
+    image: postgres:15-alpine
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: userdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
     volumes:
-      - database:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d userdb"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+  
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    ports:
+      - "8082:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres_db
+
 volumes:
-  database:
-    external: true
+  postgres_data:
+  pgadmin_data:
