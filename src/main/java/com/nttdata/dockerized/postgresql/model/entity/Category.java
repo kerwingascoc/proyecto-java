@@ -7,19 +7,13 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "categories")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String name;
-
-    @Column
-    private String email;
-
-    @Column
-    private Boolean active;
 }

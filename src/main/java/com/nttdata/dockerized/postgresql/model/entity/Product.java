@@ -1,5 +1,6 @@
 package com.nttdata.dockerized.postgresql.model.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,19 +8,24 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "products")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @Column
-    private String email;
+    private Double price;
 
     @Column
     private Boolean active;
+
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 }
