@@ -1,7 +1,8 @@
-package com.nttdata.dockerized.postgresql.service;
+package com.nttdata.dockerized.postgresql.service.impl;
 
 import com.nttdata.dockerized.postgresql.model.entity.User;
 import com.nttdata.dockerized.postgresql.repository.UserRepository;
+import com.nttdata.dockerized.postgresql.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,21 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         user.setActive(Boolean.TRUE);
         return userRepository.save(user);
+    }
+
+    @Override
+    public User update(Long id, User user) {
+        if (userRepository.findById(id).isPresent()) {
+            user.setId(id);
+            return userRepository.save(user);
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
+        }
     }
 }

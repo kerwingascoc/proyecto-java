@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @Entity
@@ -19,6 +21,9 @@ public class User {
 
     @Column
     private String email;
+
+    @Column
+    private LocalDateTime fechaRegistro;
 
     @Column
     private Boolean active;
