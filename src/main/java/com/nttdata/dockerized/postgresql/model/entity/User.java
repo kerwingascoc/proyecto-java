@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
+import java.time.LocalDateTime;
+
+
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -22,4 +24,7 @@ public class User {
 
     @Column
     private Boolean active;
+
+    @Column
+    private LocalDateTime fechaRegistro;
 }

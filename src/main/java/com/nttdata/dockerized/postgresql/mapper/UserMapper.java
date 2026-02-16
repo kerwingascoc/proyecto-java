@@ -9,6 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Mapper
@@ -27,5 +28,12 @@ public interface UserMapper {
     @AfterMapping
     default void setRemainingValues(User user, @MappingTarget UserDto userDto) {
         userDto.setStatus(Boolean.TRUE.equals(user.getActive()) ? "Active" : "Inactive");
+    }
+
+    @AfterMapping
+    default void setFechaOnSave(User user, @MappingTarget UserSaveResponseDto resp) {
+        if (user.getFechaRegistro() != null) {
+            resp.setFechaRegistro(user.getFechaRegistro().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        }
     }
 }
