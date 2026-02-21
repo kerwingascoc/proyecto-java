@@ -7,13 +7,10 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class UserSaveResponseDto {
-
-    private Long id;
+public class UserUpdateRequestDto {
 
     private String name;
-
     private String email;
-
+    private Boolean active;
     private Date registrationDate;
 }

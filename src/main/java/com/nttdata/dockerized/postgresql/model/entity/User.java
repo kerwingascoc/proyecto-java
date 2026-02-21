@@ -1,8 +1,12 @@
 package com.nttdata.dockerized.postgresql.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.Date;
 
 @Setter
 @Getter
@@ -22,4 +26,10 @@ public class User {
 
     @Column
     private Boolean active;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column
+    @CreationTimestamp
+    private Date registrationDate;
+
 }
